@@ -4,7 +4,6 @@ package dev.igrammine.commons;
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.Yaml;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.lang.annotation.*;
@@ -17,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Function;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class YamlConfig {
@@ -30,7 +30,18 @@ public class YamlConfig {
   private final FieldNameStyle classFieldNameStyle;
   private final FieldNameStyle nodeFieldNameStyle;
 
-  private Logger logger = LoggerFactory.getLogger(YamlConfig.class);
+  private org.slf4j.Logger sLogger;
+  private java.util.logging.Logger aLogger;
+  private boolean SLF4JL = false;
+
+  {
+    if (Objects.isNull(org.slf4j.Logger.class)) {
+      SLF4JL = true;
+      sLogger = LoggerFactory.getLogger(YamlConfig.class);
+    }
+    else
+      aLogger = Logger.getLogger(YamlConfig.class.getName());
+  }
 
   public YamlConfig() {
     this.classFieldNameStyle = FieldNameStyle.MACRO_CASE;
@@ -43,8 +54,12 @@ public class YamlConfig {
   }
 
 
-  public void setLogger(Logger logger) {
-    this.logger = logger;
+  public void setLogger(org.slf4j.Logger logger) {
+    SLF4JL = true;
+    this.sLogger = logger;
+  }
+  public void setLogger(java.util.logging.Logger logger) {
+    this.aLogger = logger;
   }
 
   public <T, F> void registerSerializer(ConfigSerializer<T, F> configSerializer) {
@@ -221,7 +236,10 @@ public class YamlConfig {
             this.setField(field, instance, value);
           }
         } catch (Throwable t) {
-          this.logger.debug("Failed to set config option: " + key + ": " + value + " | " + instance);
+          if (SLF4JL)
+            this.sLogger.debug("Failed to set config option: " + key + ": " + value + " | " + instance);
+          else
+            this.aLogger.info("Failed to set config option: " + key + ": " + value + " | " + instance);
           if (configFile != null) {
             Path parent = configFile.getParent();
             if (parent == null) {
@@ -232,9 +250,15 @@ public class YamlConfig {
             if (!Files.exists(configFileBackup)) {
               try {
                 Files.copy(configFile, configFileBackup, StandardCopyOption.REPLACE_EXISTING);
-                this.logger.warn("Unable to load some of the config options. File was copied to {}", configFileBackup.getFileName());
+                if (SLF4JL)
+                  this.sLogger.warn("Unable to load some of the config options. File was copied to {}", configFileBackup.getFileName());
+                else
+                  this.aLogger.warning("Unable to load some of the config options. File was copied to " + configFileBackup.getFileName());
               } catch (Throwable t2) {
-                this.logger.warn("Unable to load some of the config options and to make a copy.", t2);
+                if (SLF4JL)
+                  this.sLogger.warn("Unable to load some of the config options and to make a copy.", t2);
+                else
+                  this.aLogger.warning("Unable to load some of the config options and to make a copy." + t2);
               }
             }
           }
@@ -287,7 +311,10 @@ public class YamlConfig {
       field.setAccessible(true);
       return field;
     } catch (Throwable t) {
-      this.logger.debug("Invalid config field: " + String.join(".", split) + " for " + instance.getClass().getSimpleName());
+      if (SLF4JL)
+        this.sLogger.debug("Invalid config field: " + String.join(".", split) + " for " + instance.getClass().getSimpleName());
+      else
+        this.aLogger.info("Invalid config field: " + String.join(".", split) + " for " + instance.getClass().getSimpleName());
       return null;
     }
   }
