@@ -37,12 +37,8 @@
 
   <repositories>
     <repository>
-      <id>central</id>
-      <url>https://repo1.maven.org/maven2/</url>
-    </repository>
-    <repository>
-      <id>sonatype</id>
-      <url>https://repository.sonatype.org/content/groups/public/</url>
+      <id>igrammine-repo</id>
+      <url>https://repop.igrammine.ru/</url>
     </repository>
   </repositories>
 
@@ -58,12 +54,6 @@
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>24.0.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.7.36</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
