@@ -7,3 +7,5 @@
 /.idea/vcs.xml
 /.idea/workspace.xml
 /target/
+/src/main/resources/
+/src/main/resources/pom.xml
