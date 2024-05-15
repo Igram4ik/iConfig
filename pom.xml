@@ -43,8 +43,8 @@
 
   <repositories>
     <repository>
-      <id>igrammine-repo</id>
-      <url>https://repop.igrammine.ru/</url>
+      <id>igrammine</id>
+      <url>https://repo.igrammine.ru/</url>
     </repository>
   </repositories>
 

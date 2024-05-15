@@ -15,12 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dev.igrammine.commons;
+package dev.igrammine.commons.config;
 
-import java.util.Collection;
+public class ConfigLoadException extends RuntimeException {
 
-public interface ConfigSerializerCollection {
+  public ConfigLoadException(Throwable cause) {
+    this("An unexpected internal error was caught during (re-)loading the config.", cause);
+  }
 
-  Collection<ConfigSerializer<?, ?>> serializers();
-
+  public ConfigLoadException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

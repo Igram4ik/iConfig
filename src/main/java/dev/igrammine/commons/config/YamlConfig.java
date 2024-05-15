@@ -1,5 +1,5 @@
 
-package dev.igrammine.commons;
+package dev.igrammine.commons.config;
 
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.Yaml;
@@ -207,7 +207,7 @@ public class YamlConfig {
                 throw new IllegalAccessException(field.getType() + " is incompatible with placeholders");
               }
               Placeholders placeholders = field.getAnnotation(Placeholders.class);
-              int hash = dev.igrammine.commons.Placeholders.addPlaceholders(value, placeholders.value());
+              int hash = dev.igrammine.commons.config.Placeholders.addPlaceholders(value, placeholders.value());
               this.placeholders.add(hash);
             } else if (field.getGenericType() instanceof ParameterizedType) {
               if (field.getType() == Map.class && value instanceof Map) {
@@ -714,7 +714,7 @@ public class YamlConfig {
   }
 
   public void dispose() {
-    this.placeholders.forEach(dev.igrammine.commons.Placeholders.placeholders::remove);
+    this.placeholders.forEach(dev.igrammine.commons.config.Placeholders.placeholders::remove);
     this.placeholders.clear();
     this.cachedSerializers.clear();
     this.prefix = null;
@@ -848,7 +848,7 @@ public class YamlConfig {
 
 
   /**
-   * Allows to use {@link dev.igrammine.commons.Placeholders#replace(String, Object...)}
+   * Allows to use {@link dev.igrammine.commons.config.Placeholders#replace(String, Object...)}
    */
   @Target(ElementType.FIELD)
   @Retention(RetentionPolicy.RUNTIME)

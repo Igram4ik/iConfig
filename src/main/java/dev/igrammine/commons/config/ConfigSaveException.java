@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dev.igrammine.commons;
+package dev.igrammine.commons.config;
 
 public class ConfigSaveException extends RuntimeException {
 
