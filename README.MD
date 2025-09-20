@@ -6,13 +6,14 @@
 <dependency>
     <groupId>dev.igrammine.commons</groupId>
     <artifactId>iConfig</artifactId>
-    <version>1.3</version>
+    <version>1.3.1</version>
     <scope>compile</scope>
 </dependency>
 ```
 
-> Пример создания конфига:
-```java
+***
+> Пример создания конфига: 
+>```java
 public class Example extends YamlConfig {
     @Ignore
     public static final Example CONFIG = new Example();
