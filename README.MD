@@ -42,6 +42,6 @@ section:
   string: Это строка.
 ```
 
-`Special for [IGRAMMINE project](https://www.igrammine.ru/)`
+`Special for (IGRAMMINE project)[https://www.igrammine.ru/]`
 
 
