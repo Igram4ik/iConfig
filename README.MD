@@ -50,5 +50,6 @@ section:
 
 Special for **[IGRAMMINE project](https://www.igrammine.ru/)**
 
-
+### Disclaimer / Copyright: 
+This repository is provided for portfolio and demonstration purposes only. All rights reserved. No part of this code may be copied, modified, or distributed without explicit permission from the author.
 
